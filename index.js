@@ -22,6 +22,7 @@ circle.setAttribute("stroke-dasharray", perimeter);
 
 // This is the duration value that is shared with the onStart method
 // It is at the global scope so it can be accessed by the onStart method and the onTick method
+
 let duration;
 
 // The argument object ({}) is used to signal events to outside of the Timer class

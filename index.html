@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Timer</title>
+    <link rel="stylesheet" href="styles.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -11,21 +12,28 @@
   </head>
   <body>
     <h1>Timer</h1>
-    <svg height="400" width="400">
-      <circle
-        id="circle"
-        cx="200"
-        cy="200"
-        r="190"
-        stroke="black"
-        stroke-width="15"
-        fill="transparent"
-        transform="rotate(-90 200 200)"
-      />
-    </svg>
-    <input id="duration" type="number" value="30" />
-    <button id="start"><i class="ri-play-large-fill"></i></button>
-    <button id="pause"><i class="ri-pause-large-fill"></i></button>
+    <div class="timer">
+      <div class="controls">
+        <input id="duration" type="number" value="30" />
+        <div>
+          <button id="start"><i class="ri-play-large-fill"></i></button>
+          <button id="pause"><i class="ri-pause-large-fill"></i></button>
+        </div>
+      </div>
+      <svg height="400" width="400">
+        <circle
+          id="circle"
+          cx="200"
+          cy="200"
+          r="190"
+          stroke="black"
+          stroke-width="15"
+          fill="transparent"
+          transform="rotate(-90 200 200)"
+        />
+      </svg>
+    </div>
+
     <script src="timer.js"></script>
     <script src="index.js"></script>
   </body>
