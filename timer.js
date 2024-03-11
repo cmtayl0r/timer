@@ -30,26 +30,33 @@ class Timer {
   start = () => {
     this.startButton.disabled = true; // Disable the start button
     if (this.onStart) {
-      this.onStart(); // Call the onStart method if it exists
+      // Call the onStart method if it exists
+      // This shares the durationInput value (starting time remaining value) with the onStart method to help the circle animation
+      this.onStart(this.timeRemaining);
     }
     this.tick(); // Call tick method immediately, so the timer starts immediately
     // using 'this.interval' means that we can refer to it in other methods
-    this.interval = setInterval(this.tick, 1000); // Call tick method every 1000ms
+    this.interval = setInterval(this.tick, 20); // Call tick method every 20ms
   };
 
   tick = () => {
     if (this.timeRemaining <= 0) {
+      this.pause(); // Call the pause method to stop the timer when it reaches 0
+      // Check if the onComplete method exists
       if (this.onComplete) {
         this.onComplete(); // Call the onComplete method if it exists
       }
-      this.pause(); // Call the pause method to stop the timer when it reaches 0
     } else {
-      if (this.onTick) {
-        this.onTick(); // Call the onTick method if it exists
-      }
       // this uses the getter and setter methods below
       // to get the current value of the input and then set it to a new value
-      this.timeRemaining = this.timeRemaining - 1; // Decrement the value of the input
+      // Decrement the value of the input by the same 50ms interval set in the start method
+      this.timeRemaining = this.timeRemaining - 0.02;
+      // Check if the onTick method exists
+      if (this.onTick) {
+        // Call the onTick method if it exists
+        // share the time remaining with the onTick method so it can be used in the circle animation
+        this.onTick(this.timeRemaining);
+      }
     }
   };
 
@@ -75,6 +82,6 @@ class Timer {
   // Set the value of the input
   // e.g. this.timeRemaining = 10
   set timeRemaining(time) {
-    this.durationInput.value = time; // Set the value of the input
+    this.durationInput.value = time.toFixed(2); // Set the value of the input
   }
 }
