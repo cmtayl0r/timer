@@ -11,12 +11,21 @@ const pauseButton = document.querySelector("#pause");
 // -----------------------------------------------------------------------------
 
 class Timer {
-  constructor(durationInput, startButton, pauseButton) {
+  constructor(durationInput, startButton, pauseButton, callbacks) {
     // Assign 3 arguments to instance variables
     // So we can refer back to them later from other methods in the class
     this.durationInput = durationInput;
     this.startButton = startButton;
     this.pauseButton = pauseButton;
+
+    // Check if the callbacks argument was passed
+    // If it was, assign the 3 callback functions to instance variables
+    // So we can refer back to them later from other methods in the class
+    if (callbacks) {
+      this.onStart = callbacks.onStart;
+      this.onTick = callbacks.onTick;
+      this.onComplete = callbacks.onComplete;
+    }
 
     // Add/bind event listeners to the buttons
     this.startButton.addEventListener("click", this.start);
@@ -27,7 +36,10 @@ class Timer {
 
   start = () => {
     this.startButton.disabled = true; // Disable the start button
-    this.tick(); // Call tick method immediately
+    if (this.onStart) {
+      this.onStart(); // Call the onStart method if it exists
+    }
+    this.tick(); // Call tick method immediately, so the timer starts immediately
     // using 'this.interval' means that we can refer to it in other methods
     this.interval = setInterval(this.tick, 1000); // Call tick method every 1000ms
   };
@@ -68,4 +80,16 @@ class Timer {
   }
 }
 
-const timer = new Timer(durationInput, startButton, pauseButton);
+// the object as an callback function to the class Timer to be called when the timer starts or stops etc.
+// Signal events to outside of the Timer class
+const timer = new Timer(durationInput, startButton, pauseButton, {
+  onStart() {
+    console.log("💥 Timer Started!");
+  },
+  onTick() {
+    console.log("⏳ Timer Ticking!");
+  },
+  onComplete() {
+    console.log("⌛️ Timer Completed!");
+  },
+});
