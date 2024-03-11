@@ -65,10 +65,6 @@ class Timer {
     clearInterval(this.interval); // Clear the interval (stop the timer)
   };
 
-  onDurationChange = () => {
-    // console.log("Duration input was changed!");
-  };
-
   // GETTER AND SETTER METHODS
   // allow us to access the value of the input from other methods
   // without having to call the method
